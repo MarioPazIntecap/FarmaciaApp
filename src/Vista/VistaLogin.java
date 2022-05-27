@@ -1,11 +1,16 @@
 package Vista;
 
+import Controlador.ControladorUsuario;
+import Modelo.ModeloUsuario;
 import javax.swing.JOptionPane;
 
 public class VistaLogin extends javax.swing.JFrame {
 
     public VistaLogin() {
         initComponents();
+        ModeloUsuario modelo = new ModeloUsuario(this);
+        ControladorUsuario controlador = new ControladorUsuario(modelo);
+        setControlador(controlador);
     }
 
     @SuppressWarnings("unchecked")
@@ -59,11 +64,6 @@ public class VistaLogin extends javax.swing.JFrame {
 
         btnIngresar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnIngresar.setText("Ingresar");
-        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIngresarActionPerformed(evt);
-            }
-        });
 
         btnSalir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnSalir.setText("Salir");
@@ -145,12 +145,6 @@ public class VistaLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        VistaPrincipal vistaprincipal = new VistaPrincipal();
-        vistaprincipal.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnIngresarActionPerformed
-
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -192,4 +186,9 @@ public class VistaLogin extends javax.swing.JFrame {
     public javax.swing.JPasswordField txtPassword;
     public javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+    
+    public void setControlador(ControladorUsuario c){
+        btnIngresar.addActionListener(c);
+    }
+
 }
