@@ -38,6 +38,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         ifrmReportes = new javax.swing.JInternalFrame();
         ifrmCuadreDiario = new javax.swing.JInternalFrame();
         ifrmConfiguracion = new javax.swing.JInternalFrame();
+        ifrmUsuarios = new javax.swing.JInternalFrame();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistema de Inventarios y Ventas");
@@ -361,6 +362,21 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         tbdReportes.addTab("CONFIGURACION", ifrmConfiguracion);
 
+        ifrmUsuarios.setVisible(true);
+
+        javax.swing.GroupLayout ifrmUsuariosLayout = new javax.swing.GroupLayout(ifrmUsuarios.getContentPane());
+        ifrmUsuarios.getContentPane().setLayout(ifrmUsuariosLayout);
+        ifrmUsuariosLayout.setHorizontalGroup(
+            ifrmUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        ifrmUsuariosLayout.setVerticalGroup(
+            ifrmUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        tbdReportes.addTab("USUARIOS", ifrmUsuarios);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -416,6 +432,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JInternalFrame ifrmInventario;
     private javax.swing.JInternalFrame ifrmProductos;
     private javax.swing.JInternalFrame ifrmReportes;
+    private javax.swing.JInternalFrame ifrmUsuarios;
     private javax.swing.JInternalFrame ifrmVentas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -436,4 +453,5 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtAgregarProductoV;
     private javax.swing.JTextField txtCantidadV;
     // End of variables declaration//GEN-END:variables
+
 }
