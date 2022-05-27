@@ -1,9 +1,15 @@
 package Vista;
 
+import Controlador.ControladorProductos;
+import Modelo.ModeloProductos;
+
 public class VistaPrincipal extends javax.swing.JFrame {
 
     public VistaPrincipal() {
         initComponents();
+        ModeloProductos modelo = new ModeloProductos(this);
+        ControladorProductos controlador = new ControladorProductos(modelo);
+        setControladorP(controlador);
     }
 
     @SuppressWarnings("unchecked")
@@ -423,9 +429,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarProductoV;
-    private javax.swing.JButton btnGuardarDatosV;
-    private javax.swing.JButton btnLimpiarV;
+    public javax.swing.JButton btnAgregarProductoV;
+    public javax.swing.JButton btnGuardarDatosV;
+    public javax.swing.JButton btnLimpiarV;
     private javax.swing.JInternalFrame ifrmConfiguracion;
     private javax.swing.JInternalFrame ifrmCuadreDiario;
     private javax.swing.JInternalFrame ifrmIngresos;
@@ -436,22 +442,25 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JInternalFrame ifrmVentas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    public javax.swing.JLabel jLabel3;
+    public javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblDisponibleV;
-    private javax.swing.JLabel lblTotalV;
+    public javax.swing.JLabel lblDisponibleV;
+    public javax.swing.JLabel lblTotalV;
     private javax.swing.JPanel pnlAgregarProductoV;
     private javax.swing.JPanel pnlDatosV;
     private javax.swing.JPanel pnlDisponibleV;
     private javax.swing.JPanel pnlTotalV;
     private javax.swing.JTabbedPane tbdReportes;
-    private javax.swing.JTable tblDatosV;
-    private javax.swing.JTextField txtAgregarProductoV;
-    private javax.swing.JTextField txtCantidadV;
+    public javax.swing.JTable tblDatosV;
+    public javax.swing.JTextField txtAgregarProductoV;
+    public javax.swing.JTextField txtCantidadV;
     // End of variables declaration//GEN-END:variables
-
+    
+    public void setControladorP(ControladorProductos c){
+        btnAgregarProductoV.addActionListener(c);
+    }
 }
