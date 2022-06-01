@@ -30,12 +30,13 @@ public class ControladorProductos implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals(modelo.getVista().btnAgregarProductoV.getActionCommand())){
             modelo.getVista().tblDatosV.setModel(agregarProductos());
+            modelo.getVista().lblDisponibleV.setText("Disponible: "+validarExistencias());
         }
     }
     
     public DefaultTableModel agregarProductos(){
         double cantidad = Double.parseDouble(modelo.getVista().txtCantidadV.getText());
-        DefaultTableModel modeloTabla = new DefaultTableModel();
+        DefaultTableModel modeloTabla = (DefaultTableModel) modelo.getVista().tblDatosV.getModel();
         modeloTabla.setColumnIdentifiers(new Object[]{"Codigo","Nombre","Precio Venta","Cantidad","Total"});
         try {
             ps = conector.preparar(sql.getValidarProducto());
@@ -54,6 +55,22 @@ public class ControladorProductos implements ActionListener{
             conector.desconectar();
         }
         return modeloTabla;
+    }
+    
+    public String validarExistencias(){
+        String cantidad = "";
+        try {
+            ps = conector.preparar(sql.getValidarExistencias());
+            ps.setString(1, modelo.getVista().txtAgregarProductoV.getText());
+            resultado = ps.executeQuery();
+            while(resultado.next()){
+                cantidad = resultado.getString("cantidad");
+            }
+            conector.desconectar();
+        } catch (SQLException ex) {
+            conector.desconectar();
+        }
+        return cantidad;
     }
     
 }

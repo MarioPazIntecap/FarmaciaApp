@@ -3,6 +3,7 @@ package Conector;
 public class SQL {
     private String validarUsuario = "SELECT * FROM tbl_Usuarios WHERE usuario = ? AND password = ?;";
     private String validarProducto = "SELECT * FROM tbl_Productos WHERE codigo = ?";
+    private String validarExistencias = "SELECT cantidad FROM tbl_existencias WHERE codigoBodega = 'CEN01' AND codigoProducto = ?;";
     
     public SQL() {
     }
@@ -23,6 +24,15 @@ public class SQL {
      */
     public String getValidarProducto() {
         return validarProducto;
+    }
+
+    /**
+     * SELECT cantidad FROM tbl_existencias WHERE codigoBodega = 'CEN01' AND codigoProducto = ?;
+     * Retorna la cantidad en existencias de un producto.
+     * @return ResultSet con la cantidad del producto.
+     */
+    public String getValidarExistencias() {
+        return validarExistencias;
     }
     
     

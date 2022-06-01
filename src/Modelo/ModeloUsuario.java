@@ -1,10 +1,10 @@
 package Modelo;
 
-import Vista.VistaProductos;
+import Vista.VistaLogin;
 import Vista.VistaPrincipal;
 
 public class ModeloUsuario {
-    private VistaProductos vistaL;
+    private VistaLogin vistaL;
     private VistaPrincipal vistaU;
     private int codigo;
     private String nombre;
@@ -15,7 +15,7 @@ public class ModeloUsuario {
     public ModeloUsuario() {
     }
 
-    public ModeloUsuario(VistaProductos vistaL) {
+    public ModeloUsuario(VistaLogin vistaL) {
         if(vistaL != null)
             this.vistaL = vistaL;
     }
@@ -32,11 +32,11 @@ public class ModeloUsuario {
         this.vistaU = vistaU;
     }
 
-    public VistaProductos getVistaL() {
+    public VistaLogin getVistaL() {
         return vistaL;
     }
 
-    public void setVistaL(VistaProductos vistaL) {
+    public void setVistaL(VistaLogin vistaL) {
         this.vistaL = vistaL;
     }
 

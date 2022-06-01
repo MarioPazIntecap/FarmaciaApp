@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ControladorUsuario implements ActionListener {
-    
+
     ModeloUsuario modelo;
     PreparedStatement ps;
     ResultSet resultado;
@@ -29,25 +29,26 @@ public class ControladorUsuario implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals(modelo.getVistaL().btnIngresar.getActionCommand())){
-            if(validarDatos()){
+        if (e.getActionCommand().equals(modelo.getVistaL().btnIngresar.getActionCommand())) {
+            if (validarDatos()) {
                 VistaPrincipal vistaP = new VistaPrincipal();
+                vistaP.lblUsuarioV.setText("Usuario: " + modelo.getVistaL().txtUsuario.getText());
                 vistaP.setVisible(true);
                 modelo.getVistaL().dispose();
             }
         }
     }
-    
-    public boolean validarDatos(){
+
+    public boolean validarDatos() {
         boolean res = false;
         try {
             ps = conector.preparar(sql.getValidarUsuario());
             ps.setString(1, modelo.getVistaL().txtUsuario.getText());
             ps.setString(2, String.valueOf(modelo.getVistaL().txtPassword.getPassword()));
             resultado = ps.executeQuery();
-            while(resultado.next()){
-                res = resultado.getString("usuario").equals(modelo.getVistaL().txtUsuario.getText()) &&
-                      resultado.getString("password").equals(String.valueOf(modelo.getVistaL().txtPassword.getPassword()));
+            while (resultado.next()) {
+                res = resultado.getString("usuario").equals(modelo.getVistaL().txtUsuario.getText())
+                        && resultado.getString("password").equals(String.valueOf(modelo.getVistaL().txtPassword.getPassword()));
             }
             conector.desconectar();
             return res;
@@ -56,6 +57,5 @@ public class ControladorUsuario implements ActionListener {
             return res;
         }
     }
-    
-    
+
 }

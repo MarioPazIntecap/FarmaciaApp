@@ -11,7 +11,7 @@ public class Conector {
     private final String HOST = "localhost";
     private final String USUARIO = "root";
     private final String CLAVE = "";
-    private final String BASEDATOS = "Farmacia";
+    private final String BASEDATOS = "Farmaciaapp";
     private final String URL;
 
     private Connection link;
