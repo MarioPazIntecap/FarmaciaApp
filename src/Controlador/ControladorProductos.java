@@ -34,6 +34,7 @@ public class ControladorProductos implements ActionListener, FocusListener{
             if(Integer.parseInt(modelo.getVista().txtCantidadV.getText()) <= Integer.parseInt(modelo.getVista().lblDisponibleV.getText().substring(12))){
                 modelo.getVista().tblDatosV.setModel(agregarProductos());
                 modelo.getVista().lblTotalV.setText(generarTotal());
+                validarBotonGuardar();
             }else{
                 conector.mensaje("La cantidad sobrepasa la existente. Favor de validar", "Error al agregar producto", 0);
             }
@@ -50,7 +51,26 @@ public class ControladorProductos implements ActionListener, FocusListener{
     public void focusLost(FocusEvent e) {
         if(e.getComponent().equals(modelo.getVista().txtAgregarProductoV)){
             modelo.getVista().lblDisponibleV.setText("Disponible: "+validarExistencias());
+        }else if(e.getComponent().equals(modelo.getVista().txtNitV)){
+            modelo.getVista().lblClienteV.setText(validarCliente());
+            validarBotonGuardar();
         }
+    }
+
+    public String validarCliente(){
+        String cliente ="";
+        try {
+            ps = conector.preparar(sql.getValidarCliente());
+            ps.setString(1, modelo.getVista().txtNitV.getText());
+            resultado = ps.executeQuery();
+            while(resultado.next()){
+                cliente = resultado.getString("nombre") + " " + resultado.getString("apellido");
+            }
+            conector.desconectar();
+        } catch (SQLException ex) {
+            conector.desconectar();
+        }
+        return cliente;
     }
     
     public DefaultTableModel agregarProductos(){
@@ -101,4 +121,12 @@ public class ControladorProductos implements ActionListener, FocusListener{
         return "Total: Q" + String.valueOf(resultado);
     }
     
+    public void validarBotonGuardar(){
+        System.out.println(modelo.getVista().lblTotalV.getText().substring(8));
+        if(!"0.00".equals(modelo.getVista().lblTotalV.getText().substring(8)) && !modelo.getVista().lblClienteV.getText().isEmpty()){
+            modelo.getVista().btnGuardarDatosV.setEnabled(true);
+        } else{
+            modelo.getVista().btnGuardarDatosV.setEnabled(false);
+        }
+    }
 }
