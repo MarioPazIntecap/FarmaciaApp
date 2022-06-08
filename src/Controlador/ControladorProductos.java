@@ -39,6 +39,8 @@ public class ControladorProductos implements ActionListener, FocusListener{
                 conector.mensaje("La cantidad sobrepasa la existente. Favor de validar", "Error al agregar producto", 0);
             }
             
+        }else if(e.getActionCommand().equals(modelo.getVista().btnGuardarDatosV.getActionCommand())){
+            guardarEncabezado();
         }
     }
     
@@ -74,7 +76,7 @@ public class ControladorProductos implements ActionListener, FocusListener{
     }
     
     public DefaultTableModel agregarProductos(){
-        double cantidad = Double.parseDouble(modelo.getVista().txtCantidadV.getText());
+        int cantidad = Integer.parseInt(modelo.getVista().txtCantidadV.getText());
         DefaultTableModel modeloTabla = (DefaultTableModel) modelo.getVista().tblDatosV.getModel();
         modeloTabla.setColumnIdentifiers(new Object[]{"Codigo","Nombre","Precio Venta","Cantidad","Total"});
         try {
@@ -86,7 +88,7 @@ public class ControladorProductos implements ActionListener, FocusListener{
                     resultado.getString("codigo"),
                     resultado.getString("nombre"),
                     resultado.getString("precioVenta"),
-                    cantidad,
+                    String.valueOf(cantidad),
                     cantidad*Double.parseDouble(resultado.getString("precioVenta"))});
             }
             conector.desconectar();
@@ -127,6 +129,37 @@ public class ControladorProductos implements ActionListener, FocusListener{
             modelo.getVista().btnGuardarDatosV.setEnabled(true);
         } else{
             modelo.getVista().btnGuardarDatosV.setEnabled(false);
+        }
+    }
+    
+    public void guardarEncabezado(){
+        try {
+            ps = conector.preparar(sql.getIngresarEnc());
+            ps.setString(1, modelo.getVista().txtNitV.getText());
+            ps.setString(2, modelo.getVista().lblUsuarioV.getText().substring(9));
+            ps.executeUpdate();
+            conector.desconectar();
+            guardarProductos();
+        } catch (SQLException ex) {
+            conector.mensaje(ex.getMessage(), "Error", 0);
+        }
+    }
+    
+    public void guardarProductos(){
+        DefaultTableModel model = (DefaultTableModel) modelo.getVista().tblDatosV.getModel();
+        for(int i = 0; i < model.getRowCount(); i++){
+            try {
+                ps = conector.preparar(sql.getIngresarDet());
+                ps.setString(1, model.getValueAt(i, 0).toString());
+                ps.setDouble(2, Double.parseDouble(model.getValueAt(i, 2).toString()));
+                ps.setString(3, modelo.getVista().txtNitV.getText());
+                ps.setString(4, modelo.getVista().lblUsuarioV.getText().substring(9));
+                ps.setInt(5, Integer.parseInt(model.getValueAt(i, 3).toString()));
+                ps.executeUpdate();
+                conector.desconectar();
+            } catch (SQLException ex) {
+                conector.mensaje(ex.getMessage(), "Error", 0);
+            }
         }
     }
 }

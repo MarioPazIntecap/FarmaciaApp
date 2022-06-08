@@ -508,6 +508,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     
     public void setControladorP(ControladorProductos c){
         btnAgregarProductoV.addActionListener(c);
+        btnGuardarDatosV.addActionListener(c);
         txtAgregarProductoV.addFocusListener(c);
         txtNitV.addFocusListener(c);
     }
